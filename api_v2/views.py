@@ -48,9 +48,9 @@ class ArticleUpdateView(APIView):
             article = slr.save()
             return Response(slr.data)
         else:
-            return Response({
-                "error": "Произошла ошибка"
-            })
+            response = JsonResponse(slr.errors, safe=False)
+            response.status_code = 400
+            return response
 
 
 class ArticleDeleteView(APIView):
